@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1901</width>
+    <width>1874</width>
     <height>842</height>
    </rect>
   </property>
@@ -503,14 +503,14 @@ border-bottom:2px solid white;</string>
   <widget class="QLabel" name="label_10">
    <property name="geometry">
     <rect>
-     <x>1660</x>
+     <x>1700</x>
      <y>470</y>
-     <width>101</width>
-     <height>16</height>
+     <width>41</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Frequancy</string>
+    <string>Fmax</string>
    </property>
   </widget>
   <widget class="QSlider" name="HorizontalSlider_SamplingFrequancy">
@@ -527,8 +527,29 @@ border-bottom:2px solid white;</string>
   
 </string>
    </property>
+   <property name="minimum">
+    <number>5</number>
+   </property>
+   <property name="maximum">
+    <number>40</number>
+   </property>
+   <property name="singleStep">
+    <number>5</number>
+   </property>
+   <property name="pageStep">
+    <number>5</number>
+   </property>
+   <property name="tracking">
+    <bool>true</bool>
+   </property>
    <property name="orientation">
     <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::NoTicks</enum>
+   </property>
+   <property name="tickInterval">
+    <number>0</number>
    </property>
   </widget>
   <widget class="QPushButton" name="PushButton_SaveSignal">
@@ -577,6 +598,21 @@ border-bottom:2px solid white;</string>
   
 </string>
    </property>
+   <item>
+    <property name="text">
+     <string>Shannon</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Method_1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Method_2</string>
+    </property>
+   </item>
   </widget>
   <widget class="QLabel" name="label_14">
    <property name="geometry">
@@ -595,6 +631,29 @@ color:white;
    </property>
    <property name="text">
     <string>Reconstrution</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEdit_SetSamplingFrequancy">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>470</y>
+     <width>31</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_15">
+   <property name="geometry">
+    <rect>
+     <x>1810</x>
+     <y>480</y>
+     <width>41</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>4Fmax</string>
    </property>
   </widget>
   <zorder>Widget_1</zorder>
@@ -628,6 +687,8 @@ color:white;
   <zorder>Combobox_ReconstructionMethod</zorder>
   <zorder>PushButton_GenerateSignal</zorder>
   <zorder>PushButton_AddComponent</zorder>
+  <zorder>LineEdit_SetSamplingFrequancy</zorder>
+  <zorder>label_15</zorder>
  </widget>
  <customwidgets>
   <customwidget>
