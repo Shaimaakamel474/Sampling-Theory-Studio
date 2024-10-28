@@ -1,4 +1,4 @@
-
+# toz fi shimaa martin
 from PyQt5.QtCore import Qt
 
 from Signal import Signal
