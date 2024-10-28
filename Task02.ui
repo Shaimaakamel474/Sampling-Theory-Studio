@@ -83,7 +83,7 @@ border-radius:20px;
    <property name="geometry">
     <rect>
      <x>980</x>
-     <y>290</y>
+     <y>300</y>
      <width>911</width>
      <height>531</height>
     </rect>
@@ -103,23 +103,6 @@ border-radius:20px;
      <x>1010</x>
      <y>310</y>
      <width>611</width>
-     <height>491</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:rgba(158,177,175,255);
-border-radius:20px;</string>
-   </property>
-   <property name="text">
-    <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>1640</x>
-     <y>310</y>
-     <width>231</width>
      <height>491</height>
     </rect>
    </property>
@@ -385,25 +368,6 @@ border-bottom:2px solid white;</string>
     <string>Components</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_13">
-   <property name="geometry">
-    <rect>
-     <x>1660</x>
-     <y>340</y>
-     <width>181</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">Font-size:18px;
-font-weight:1000;
-color:white;
-border-bottom:2px solid white;</string>
-   </property>
-   <property name="text">
-    <string>Noise</string>
-   </property>
-  </widget>
   <widget class="QListWidget" name="ListWidget_Signals">
    <property name="geometry">
     <rect>
@@ -458,125 +422,6 @@ border-bottom:2px solid white;</string>
 </string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_8">
-   <property name="geometry">
-    <rect>
-     <x>1660</x>
-     <y>380</y>
-     <width>55</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Value:</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_9">
-   <property name="geometry">
-    <rect>
-     <x>1790</x>
-     <y>380</y>
-     <width>55</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>SNR</string>
-   </property>
-  </widget>
-  <widget class="QSlider" name="HorizontalSlider_SNR">
-   <property name="geometry">
-    <rect>
-     <x>1670</x>
-     <y>410</y>
-     <width>160</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:rgba(158,177,175,255);</string>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_10">
-   <property name="geometry">
-    <rect>
-     <x>1700</x>
-     <y>470</y>
-     <width>41</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Fmax</string>
-   </property>
-  </widget>
-  <widget class="QSlider" name="HorizontalSlider_SamplingFrequancy">
-   <property name="geometry">
-    <rect>
-     <x>1670</x>
-     <y>500</y>
-     <width>160</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background:rgba(158,177,175,255);
-  
-</string>
-   </property>
-   <property name="minimum">
-    <number>5</number>
-   </property>
-   <property name="maximum">
-    <number>40</number>
-   </property>
-   <property name="singleStep">
-    <number>5</number>
-   </property>
-   <property name="pageStep">
-    <number>5</number>
-   </property>
-   <property name="tracking">
-    <bool>true</bool>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="tickPosition">
-    <enum>QSlider::NoTicks</enum>
-   </property>
-   <property name="tickInterval">
-    <number>0</number>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="PushButton_SaveSignal">
-   <property name="geometry">
-    <rect>
-     <x>1670</x>
-     <y>580</y>
-     <width>161</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">  background: rgba(113,133,132,255);
-  font-family: inherit;
-  padding: 0.2em 0.3em;
-  font-weight: 600;
-  color:white;
-  font-size: 14px;
-  border: 3px solid rgba(68,82,83,255);
-  border-radius: 0.4em;
-  
-</string>
-   </property>
-   <property name="text">
-    <string>Save File</string>
-   </property>
-  </widget>
   <widget class="QComboBox" name="Combobox_ReconstructionMethod">
    <property name="geometry">
     <rect>
@@ -605,7 +450,7 @@ border-bottom:2px solid white;</string>
    </item>
    <item>
     <property name="text">
-     <string>Method_1</string>
+     <string>Cubic</string>
     </property>
    </item>
    <item>
@@ -633,27 +478,269 @@ color:white;
     <string>Reconstrution</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="LineEdit_SetSamplingFrequancy">
+  <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>1660</x>
-     <y>470</y>
-     <width>31</width>
+     <x>1630</x>
+     <y>310</y>
+     <width>231</width>
+     <height>491</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:rgba(158,177,175,255);
+border-radius:20px;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="Label_SetSamplingFrequancy">
+   <property name="geometry">
+    <rect>
+     <x>1770</x>
+     <y>510</y>
+     <width>51</width>
      <height>22</height>
     </rect>
    </property>
+   <property name="text">
+    <string>HZ</string>
+   </property>
   </widget>
-  <widget class="QLabel" name="label_15">
+  <widget class="QCheckBox" name="Checkbox_IsNormalizedSampling">
    <property name="geometry">
     <rect>
-     <x>1810</x>
+     <x>1660</x>
      <y>480</y>
-     <width>41</width>
+     <width>151</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Normal Range</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_16">
+   <property name="geometry">
+    <rect>
+     <x>1650</x>
+     <y>570</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+   </property>
+   <property name="text">
+    <string>Default Signals</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_13">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>340</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+   </property>
+   <property name="text">
+    <string>Noise</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="HorizontalSlider_SNR">
+   <property name="geometry">
+    <rect>
+     <x>1670</x>
+     <y>410</y>
+     <width>160</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:rgba(158,177,175,255);</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="value">
+    <number>100</number>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="Combobox_DefualtSignals">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>610</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+   </property>
+   <item>
+    <property name="text">
+     <string>Signal 1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Signal 2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Signal 3</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="PushButton_SaveSignal">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>750</y>
+     <width>161</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+   </property>
+   <property name="text">
+    <string>Save File</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_9">
+   <property name="geometry">
+    <rect>
+     <x>1790</x>
+     <y>380</y>
+     <width>55</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>4Fmax</string>
+    <string>SNR</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEdit_SetSamplingFrequancy">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>510</y>
+     <width>31</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QSlider" name="HorizontalSlider_SamplingFrequancy">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>540</y>
+     <width>160</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background:rgba(158,177,175,255);
+  
+</string>
+   </property>
+   <property name="minimum">
+    <number>1</number>
+   </property>
+   <property name="maximum">
+    <number>100</number>
+   </property>
+   <property name="singleStep">
+    <number>1</number>
+   </property>
+   <property name="pageStep">
+    <number>5</number>
+   </property>
+   <property name="tracking">
+    <bool>true</bool>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+   <property name="tickPosition">
+    <enum>QSlider::NoTicks</enum>
+   </property>
+   <property name="tickInterval">
+    <number>0</number>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_17">
+   <property name="geometry">
+    <rect>
+     <x>1650</x>
+     <y>440</y>
+     <width>201</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+   </property>
+   <property name="text">
+    <string>Sampling Rate</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="LineEdit_SetSNRValue">
+   <property name="geometry">
+    <rect>
+     <x>1660</x>
+     <y>380</y>
+     <width>31</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>100</string>
    </property>
   </widget>
   <zorder>Widget_1</zorder>
@@ -662,7 +749,6 @@ color:white;
   <zorder>Widget_2</zorder>
   <zorder>label</zorder>
   <zorder>label_2</zorder>
-  <zorder>label_3</zorder>
   <zorder>PushButton_UploadSignal</zorder>
   <zorder>label_4</zorder>
   <zorder>label_5</zorder>
@@ -670,16 +756,9 @@ color:white;
   <zorder>label_7</zorder>
   <zorder>label_11</zorder>
   <zorder>label_12</zorder>
-  <zorder>label_13</zorder>
   <zorder>ListWidget_Signals</zorder>
   <zorder>ListWidget_Components</zorder>
   <zorder>ListWidget_SignalGeneration</zorder>
-  <zorder>label_8</zorder>
-  <zorder>label_9</zorder>
-  <zorder>HorizontalSlider_SNR</zorder>
-  <zorder>label_10</zorder>
-  <zorder>HorizontalSlider_SamplingFrequancy</zorder>
-  <zorder>PushButton_SaveSignal</zorder>
   <zorder>SpinBox_Frequency</zorder>
   <zorder>SpinBox_Amplitude</zorder>
   <zorder>SpinBox_Phase</zorder>
@@ -687,8 +766,19 @@ color:white;
   <zorder>Combobox_ReconstructionMethod</zorder>
   <zorder>PushButton_GenerateSignal</zorder>
   <zorder>PushButton_AddComponent</zorder>
+  <zorder>label_3</zorder>
+  <zorder>Label_SetSamplingFrequancy</zorder>
+  <zorder>Checkbox_IsNormalizedSampling</zorder>
+  <zorder>label_16</zorder>
+  <zorder>label_13</zorder>
+  <zorder>HorizontalSlider_SNR</zorder>
+  <zorder>Combobox_DefualtSignals</zorder>
+  <zorder>PushButton_SaveSignal</zorder>
+  <zorder>label_9</zorder>
   <zorder>LineEdit_SetSamplingFrequancy</zorder>
-  <zorder>label_15</zorder>
+  <zorder>HorizontalSlider_SamplingFrequancy</zorder>
+  <zorder>label_17</zorder>
+  <zorder>LineEdit_SetSNRValue</zorder>
  </widget>
  <customwidgets>
   <customwidget>

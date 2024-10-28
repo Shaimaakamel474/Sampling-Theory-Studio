@@ -10,12 +10,12 @@ import pyqtgraph as pg
 from PyQt5.QtWidgets import QFileDialog ,QApplication , QMainWindow , QLabel
 import sys
 import pandas as pd 
-
+import math
 import numpy as np
-
+from PyQt5.QtWidgets import QSlider
 
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QPushButton, QWidget, QHBoxLayout
-
+from scipy.interpolate import CubicSpline
 from PyQt5 import uic
 
 
@@ -40,7 +40,6 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.PushButton_AddComponent.clicked.connect(self.CreateNewComponent)
         self.PushButton_UploadSignal.clicked.connect(self.Upload_Signal) 
         self.PushButton_GenerateSignal.clicked.connect(self.Generate_Mixed_Signal)
-        self.HorizontalSlider_SamplingFrequancy.valueChanged.connect(lambda value: self.change_Sampling_Rate(self.Current_Signal, value))
         self.PushButton_GenerateSignal.setEnabled(False)
 
         # create 4 objects from Widget Class
@@ -49,6 +48,13 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.graph_3=Widget(self.Widget_3)
         self.graph_4=Widget(self.Widget_4, 'frequancy' , 'Amplitude')
       
+        
+        self.Checkbox_IsNormalizedSampling.stateChanged.connect(self.Change_SamplingRate_Method)
+        self.HorizontalSlider_SamplingFrequancy.valueChanged.connect(lambda value: self.Change_samplingRate(value))
+        self.Combobox_ReconstructionMethod.currentIndexChanged.connect(lambda item_index : self.Reconstruction_Method(item_index))
+        self.HorizontalSlider_SNR.valueChanged.connect(self.update_SNR)
+
+
 
         
         # t = np.arange(0, 2.1, 1/1000 ,  dtype=np.float64)
@@ -64,6 +70,8 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         # self.LineEdit_SetSamplingFrequancy.setText(str(1))
         # self.Current_Signal=self.CreatedSignal
         # self.Plot_OriginalSignal(self.Current_Signal)
+
+
 
 
 
@@ -180,6 +188,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.combined_signal += Component_data
        
         self.componentsList.append(Curr_Component)
+        self.clear_all_graphs()
         self.graph_1.plot.setData(self.time , self.combined_signal)
         self.graph_1.widget.setTitle("Generate New Signal")
         self.AddComop_ListGeneration(Curr_Component)
@@ -239,7 +248,10 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.Signals.append(signal)
         signal.Components=self.componentsList
         signal.Update_max_Frequancy()
-        print(f" max freq in generation : {signal.maxfrequancy}")
+        self.Current_Signal=signal
+        # print(f" max freq in generation : {signal.maxfrequancy}")
+        self.Change_samplingRate(signal.maxfrequancy)
+        self.HorizontalSlider_SamplingFrequancy.setValue(signal.maxfrequancy)
         
         # reset all thing 
         self.combined_signal=np.zeros(1000)
@@ -249,7 +261,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.SpinBox_Amplitude.setValue(0)
         self.SpinBox_Phase.setValue(0)
         
-        self.Current_Signal=signal
+
         self.Add_SignalList(signal)
         
 
@@ -286,7 +298,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         if len( self.Current_Signal.Components)>1:
         #    print(f"len now is {len( self.Current_Signal.Components)}")
            self.Current_Signal.Remove_component(component_to_remove)
-           print(f" the max freq after delete component : {self.Current_Signal.maxfrequancy}")
+        #    print(f" the max freq after delete component : {self.Current_Signal.maxfrequancy}")
            self.Plot_OriginalSignal(self.Current_Signal)
         else :
             # last component
@@ -337,9 +349,13 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         if signal :
             for component in signal.Components:
                 self.Add_SignalComponents(component)
+            self.Current_Signal=signal
+            self.Change_SamplingRate_Method()
             self.Plot_OriginalSignal(signal)
         else:
-            self.graph_1.clear_Widget()
+            # the signals is endedd
+            self.Reset_Default_Slider()
+            self.clear_all_graphs()
 
 
 
@@ -369,49 +385,153 @@ class MainWindow(QMainWindow,Ui_MainWindow):
             self.graph_1.plot.setData(self.Current_Signal.time , self.Current_Signal.amplitude )
             self.graph_1.widget.setTitle(self.Current_Signal.name)
 
-            # # create the sampling points 
-            # time_sampling=np.arange(0,2.1, 1/self.Current_Signal.sampling_rate_freq ,  dtype=np.float64)
-            # data_sampling=interp1d(self.Current_Signal.time, self.Current_Signal.amplitude,
-            #                         kind='linear', fill_value='extrapolate')(time_sampling) 
-            # # draw a sampling points 
-            # scatter_plot = pg.ScatterPlotItem(
-            # x=time_sampling, y=data_sampling, pen='r', symbol='x', size=10)
-            # self.graph_1.widget.addItem(scatter_plot)
+            # # # create the sampling points 
+            time_sampling=np.arange(0,2.1, 1/self.Current_Signal.sampling_rate_freq ,  dtype=np.float64)
+            data_sampling=interp1d(self.Current_Signal.time, self.Current_Signal.amplitude,
+                                    kind='linear', fill_value='extrapolate')(time_sampling) 
+            # draw a sampling points 
+            scatter_plot_curr = pg.ScatterPlotItem(
+            x=time_sampling, y=data_sampling, pen='r', symbol='x', size=10)
+            self.graph_1.Scatter_Plot_func(scatter_plot_curr)
+            
+            self.Current_Signal.Resampled_time = time_sampling
+            self.Current_Signal.Resampled_data=data_sampling
+
+
+            item=self.Combobox_ReconstructionMethod.currentIndex()
+            self.Reconstruction_Method(item)
 
 
 
             # interpolated_data=self.reconstruct_signal(self.Current_Signal , time_sampling , data_sampling)
             # self.graph_2.plot.setData(self.Current_Signal.time , interpolated_data)
-           
-            # difference_signal=np.abs(self.Current_Signal.amplitude - interpolated_data)
-            # self.graph_3.plot.setData(self.Current_Signal.time , difference_signal)
+
+
+
             
 
-    def reconstruct_signal( self , signal , time_sampling , data_sampling):
-        interpolated_data = np.zeros_like(signal.time, dtype=np.float64)
-        N=len(signal.time)
-        sampling_interval=1/signal.sampling_rate_freq
+    def Shannon_Method( self ):
+        Signal=self.Current_Signal
+        time_sampling=self.Current_Signal.Resampled_time
+        data_sampling=self.Current_Signal.Resampled_data
+
+        interpolated_data = np.zeros_like(Signal.time, dtype=np.float64)
+        N=len(Signal.time)
+        sampling_interval=1/Signal.sampling_rate_freq
+
         for i in range(len(time_sampling)):  # Convolution using sinc
-            interpolated_data += data_sampling[i] * np.sinc((signal.time - time_sampling[i]) /sampling_interval )
-        return interpolated_data
-
-    def change_Sampling_Rate(self , signal , value ):
-      if signal :
-        signal.sampling_rate_freq= signal.maxfrequancy  *(value / 10)
-        self.LineEdit_SetSamplingFrequancy.setText(str(value / 10))
-        
-
-        self.Plot_OriginalSignal(self.Current_Signal)
-
+            interpolated_data += data_sampling[i] * np.sinc((Signal.time - time_sampling[i]) /sampling_interval )
+        return interpolated_data 
     
 
 
+    def Cubic_Method(self):
+        Signal=self.Current_Signal
+        time_sampling=self.Current_Signal.Resampled_time
+        data_sampling=self.Current_Signal.Resampled_data
+        reconstructed_signal = CubicSpline(time_sampling, data_sampling, bc_type="natural")(Signal.time)
+        return reconstructed_signal
 
+    
+
+    def Reconstruction_Method(self , item_index):
+        if item_index ==0 :
+            name=self.Combobox_ReconstructionMethod.currentText()
+            reconstructed_data =self.Shannon_Method()
+        elif item_index ==1:
+            name=self.Combobox_ReconstructionMethod.currentText()
+            reconstructed_data =self.Cubic_Method()
 
 
         
-
         
+
+
+        self.graph_2.plot.setData(self.Current_Signal.time , reconstructed_data) 
+        self.graph_2.widget.setTitle(f"Reconctructed {name} Method")       
+        difference_signal=np.abs(self.Current_Signal.amplitude - reconstructed_data)
+        self.graph_3.plot.setData(self.Current_Signal.time , difference_signal)
+        self.graph_3.widget.setTitle(" Difference Signal")
+                     
+        
+     
+
+    # if the normalize is clickedddd
+    def Change_SamplingRate_Method(self):
+        max_freq=self.Current_Signal.maxfrequancy
+        if self.Checkbox_IsNormalizedSampling.isChecked():
+            self.set_silder_limits( 0.5 *max_freq, 4 *max_freq , 0.5*max_freq , 0.5*max_freq )
+        else:
+            self.set_silder_limits( 1, 20*max_freq , 1 , 5 )
+        
+        # return to the default values >> 1 fmax
+        self.HorizontalSlider_SamplingFrequancy.setValue(self.Current_Signal.maxfrequancy)
+        self.Current_Signal.Update_Sampling_rate(self.Current_Signal.maxfrequancy)
+        self.Display_labels()
+
+    def Change_samplingRate(self , value):
+        self.Current_Signal.Update_Sampling_rate(value)
+        # to update the limitsss
+        self.Display_labels()
+        self.Plot_OriginalSignal(self.Current_Signal)
+        # print(f"sampling rate is {self.Current_Signal.sampling_rate_freq}")
+
+
+    def set_silder_limits(self , min , max , step1 , step2):
+        # print(f" the max : {max}")
+        self.HorizontalSlider_SamplingFrequancy.setMinimum(int(min))      
+        self.HorizontalSlider_SamplingFrequancy.setMaximum(int(max))    
+        self.HorizontalSlider_SamplingFrequancy.setSingleStep(int(step1)) 
+        self.HorizontalSlider_SamplingFrequancy.setPageStep(int(step2))
+
+    
+        
+    def Display_labels(self ):
+        max_freq=self.Current_Signal.maxfrequancy
+        if self.Checkbox_IsNormalizedSampling.isChecked():
+            unit="Fmax"
+            self.set_silder_limits( 0.5 *max_freq, 4 *max_freq , 0.5*max_freq , 0.5*max_freq )
+            value=self.Current_Signal.sampling_rate_freq / self.Current_Signal.maxfrequancy
+            # value=math.floor(value)
+            value=f"{value:.2f}" 
+            # print(f"value : {value} ")
+        else:
+            unit="HZ"
+            value=self.Current_Signal.sampling_rate_freq
+            self.set_silder_limits( 1, 20*max_freq , 1 , 5 )
+        self.Label_SetSamplingFrequancy.setText(str(unit)) 
+        self.LineEdit_SetSamplingFrequancy.setText(str(value)) 
+    
+    def Reset_Default_Slider(self):
+        self.HorizontalSlider_SamplingFrequancy.setValue(1)
+        self.Label_SetSamplingFrequancy.setText(str("HZ")) 
+        self.LineEdit_SetSamplingFrequancy.setText(str(0))
+    
+    def clear_all_graphs(self):
+        self.graph_1.clear_Widget()
+        self.graph_2.clear_Widget()
+        self.graph_3.clear_Widget()
+        self.graph_4.clear_Widget()
+
+    def update_SNR(self):
+        # delete old noise
+        self.Current_Signal.amplitude -= self.Current_Signal.noise
+        SNR_Value = self.HorizontalSlider_SNR.value()
+        self.LineEdit_SetSNRValue.setText(str(SNR_Value))
+        signal_power = np.mean(self.Current_Signal.amplitude ** 2)
+        noise_power = signal_power / (10 ** (SNR_Value / 10))
+        noise = np.sqrt(noise_power) * np.random.normal(size=self.Current_Signal.amplitude.shape)
+        self.Current_Signal.noise=noise
+        self.Current_Signal.amplitude +=noise 
+
+        self.Plot_OriginalSignal(self.Current_Signal)
+
+
+
+
+
+
+
 
 
 

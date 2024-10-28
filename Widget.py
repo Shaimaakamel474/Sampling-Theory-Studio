@@ -13,7 +13,7 @@ class Widget():
         self.widget.setLabel('bottom', x_label) 
         self.widget.setBackground('w')
         self.widget.getAxis('bottom').setTickSpacing(major=0.1, minor=0.05)
-      
+        self.scatter_plot=None
         # widget.setXRange(0 , 2.2)
         # widget.setLimits(xMin=0, xMax=2.2, yMin=-1, yMax=1)
         
@@ -22,9 +22,15 @@ class Widget():
 
 
     def clear_Widget(self):
-        self.plot.clear()
+        self.plot.setData([] , [])
         self.widget.setTitle("")
+        if self.scatter_plot:
+            self.widget.removeItem(self.scatter_plot)
         
+    def Scatter_Plot_func(self , plot):
+        self.scatter_plot=plot
+        self.widget.addItem(self.scatter_plot)
+
 
 
      
