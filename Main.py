@@ -53,6 +53,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.HorizontalSlider_SamplingFrequancy.valueChanged.connect(lambda value: self.Change_samplingRate(value))
         self.Combobox_ReconstructionMethod.currentIndexChanged.connect(lambda item_index : self.Reconstruction_Method(item_index))
         self.HorizontalSlider_SNR.valueChanged.connect(self.update_SNR)
+        self.HorizontalSlider_SNR.setEnabled(False)
 
 
 
@@ -243,6 +244,8 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 
 
     def Generate_Mixed_Signal(self):
+        self.HorizontalSlider_SNR.setEnabled(True)
+
         num=len(self.Signals)
         signal=Signal(self.time , self.combined_signal , f"Signal_{num+1}" )
         self.Signals.append(signal)
@@ -252,6 +255,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         # print(f" max freq in generation : {signal.maxfrequancy}")
         self.Change_samplingRate(signal.maxfrequancy)
         self.HorizontalSlider_SamplingFrequancy.setValue(signal.maxfrequancy)
+        self.update_SNR()
         
         # reset all thing 
         self.combined_signal=np.zeros(1000)
@@ -351,11 +355,13 @@ class MainWindow(QMainWindow,Ui_MainWindow):
                 self.Add_SignalComponents(component)
             self.Current_Signal=signal
             self.Change_SamplingRate_Method()
+            self.update_SNR()
             self.Plot_OriginalSignal(signal)
         else:
             # the signals is endedd
             self.Reset_Default_Slider()
             self.clear_all_graphs()
+            self.HorizontalSlider_SNR.setEnabled(False)
 
 
 
