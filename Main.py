@@ -1,8 +1,5 @@
-# toz fi shimaa martin
 from PyQt5.QtCore import Qt
-
 from Signal import Signal
-
 from scipy.fft import fft
 from PyQt5.QtGui import QIcon
 from scipy.interpolate import interp1d
@@ -13,18 +10,14 @@ import pandas as pd
 import math
 import numpy as np
 from PyQt5.QtWidgets import QSlider
-
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QPushButton, QWidget, QHBoxLayout
 from scipy.interpolate import CubicSpline
 from PyQt5 import uic
-
-
 from Component import Component
 from Widget import Widget
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType("Task02.ui")
-# shaimnaaa lakmekmlem
-
++6
 class MainWindow(QMainWindow,Ui_MainWindow):
     def __init__(self):
         super(MainWindow,self).__init__()
@@ -185,13 +178,13 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         
         
         phase_rad = np.deg2rad(phase)  
-        Component_data = amplitude * np.sin(2 * np.pi * frequancy * self.time + phase_rad)  # Generate signal
+        Component_data = amplitude * np.cos(2 * np.pi * frequancy * self.time + phase_rad)  # Generate signal
         self.combined_signal += Component_data
        
         self.componentsList.append(Curr_Component)
         self.clear_all_graphs()
        
-        self.Set_YRange_Limits(self.combined_signal)
+       # self.Set_YRange_Limits(self.combined_signal)
        
         self.graph_1.plot.setData(self.time , self.combined_signal)
         self.graph_1.widget.setTitle("Generate New Signal")
@@ -403,7 +396,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.graph_1.clear_Widget()
         if Signal :
             self.Current_Signal=Signal
-            self.Set_YRange_Limits( self.Current_Signal.amplitude)
+            #self.Set_YRange_Limits( self.Current_Signal.amplitude)
             self.graph_1.plot.setData(self.Current_Signal.time , self.Current_Signal.amplitude )
             self.graph_1.widget.setTitle(self.Current_Signal.name)
 
@@ -434,15 +427,22 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 
     def Shannon_Method( self ):
         Signal=self.Current_Signal
+        #x time on graph 
         time_sampling=self.Current_Signal.Resampled_time
+        # y time on graph 
         data_sampling=self.Current_Signal.Resampled_data
 
-        interpolated_data = np.zeros_like(Signal.time, dtype=np.float64)
+        # array of zeros to reconstract y
+        interpolated_data = []
         N=len(Signal.time)
+        #time interval between indicators
+        
         sampling_interval=1/Signal.sampling_rate_freq
-
-        for i in range(len(time_sampling)):  # Convolution using sinc
-            interpolated_data += data_sampling[i] * np.sinc((Signal.time - time_sampling[i]) /sampling_interval )
+        for t in Signal.time:
+            x=0
+            for i in range(len(time_sampling)):  # Convolution using sinc
+                x+=((data_sampling[i]) * np.sinc((t - time_sampling[i]) /sampling_interval ))
+            interpolated_data.append(x)
         return interpolated_data 
     
 
