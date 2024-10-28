@@ -14,8 +14,8 @@ class Widget():
         self.widget.setBackground('w')
         self.widget.getAxis('bottom').setTickSpacing(major=0.1, minor=0.05)
         self.scatter_plot=None
-        # widget.setXRange(0 , 2.2)
-        # widget.setLimits(xMin=0, xMax=2.2, yMin=-1, yMax=1)
+        self.widget.setXRange(-0.2 , 2.3)
+        self.widget.setLimits(xMin=-0.2, xMax=2.3)
         
 
 

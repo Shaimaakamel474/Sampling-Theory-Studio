@@ -190,10 +190,15 @@ class MainWindow(QMainWindow,Ui_MainWindow):
        
         self.componentsList.append(Curr_Component)
         self.clear_all_graphs()
+       
+        self.Set_YRange_Limits(self.combined_signal)
+       
         self.graph_1.plot.setData(self.time , self.combined_signal)
         self.graph_1.widget.setTitle("Generate New Signal")
         self.AddComop_ListGeneration(Curr_Component)
         self.PushButton_GenerateSignal.setEnabled(True)
+
+
 
    
     
@@ -302,8 +307,11 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         if len( self.Current_Signal.Components)>1:
         #    print(f"len now is {len( self.Current_Signal.Components)}")
            self.Current_Signal.Remove_component(component_to_remove)
+           
+           self.Change_samplingRate()
         #    print(f" the max freq after delete component : {self.Current_Signal.maxfrequancy}")
            self.Plot_OriginalSignal(self.Current_Signal)
+      
         else :
             # last component
             # print("here last comp")
@@ -332,6 +340,13 @@ class MainWindow(QMainWindow,Ui_MainWindow):
             signal=Signal(time[:1000], amplitude[:1000], name )
             self.Current_Signal=signal     
             self.Get_MaxFrequancy(signal)
+            self.Current_Signal=signal
+            # print(f" max freq in generation : {signal.maxfrequancy}")
+            self.Change_samplingRate(signal.maxfrequancy)
+            self.HorizontalSlider_SamplingFrequancy.setValue(signal.maxfrequancy)
+            self.HorizontalSlider_SNR.setEnabled(True)
+            self.update_SNR()
+
             self.Add_SignalList(signal)
 
 
@@ -343,7 +358,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         frequencies=frequencies[:(len(fft_result))//2]
         # based on magintude
         # dominant_freq = frequencies[np.argmax(2.0 / 1000* np.abs(fft_result[:1000// 2]))]
-        signal.maxfrequancy=np.max(frequencies)
+        signal.maxfrequancy=int(np.max(frequencies))
         print(f" max_frequency : {signal.maxfrequancy}")
     
 
@@ -388,6 +403,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.graph_1.clear_Widget()
         if Signal :
             self.Current_Signal=Signal
+            self.Set_YRange_Limits( self.Current_Signal.amplitude)
             self.graph_1.plot.setData(self.Current_Signal.time , self.Current_Signal.amplitude )
             self.graph_1.widget.setTitle(self.Current_Signal.name)
 
@@ -464,23 +480,26 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 
     # if the normalize is clickedddd
     def Change_SamplingRate_Method(self):
-        max_freq=self.Current_Signal.maxfrequancy
-        if self.Checkbox_IsNormalizedSampling.isChecked():
-            self.set_silder_limits( 0.5 *max_freq, 4 *max_freq , 0.5*max_freq , 0.5*max_freq )
-        else:
-            self.set_silder_limits( 1, 20*max_freq , 1 , 5 )
-        
-        # return to the default values >> 1 fmax
-        self.HorizontalSlider_SamplingFrequancy.setValue(self.Current_Signal.maxfrequancy)
-        self.Current_Signal.Update_Sampling_rate(self.Current_Signal.maxfrequancy)
-        self.Display_labels()
+        if self.Current_Signal:
+            max_freq=self.Current_Signal.maxfrequancy
+            if self.Checkbox_IsNormalizedSampling.isChecked():
+                self.set_silder_limits( 0.5 *max_freq, 4 *max_freq , 0.5*max_freq , 0.5*max_freq )
+            else:
+                self.set_silder_limits( 1, 20*max_freq , 1 , 5 )
+            
+            # return to the default values >> 1 fmax
+            self.HorizontalSlider_SamplingFrequancy.setValue(self.Current_Signal.maxfrequancy)
+            self.Current_Signal.Update_Sampling_rate(self.Current_Signal.maxfrequancy)
+            self.Display_labels()
 
     def Change_samplingRate(self , value):
-        self.Current_Signal.Update_Sampling_rate(value)
-        # to update the limitsss
-        self.Display_labels()
-        self.Plot_OriginalSignal(self.Current_Signal)
-        # print(f"sampling rate is {self.Current_Signal.sampling_rate_freq}")
+        value_final=value if value else self.HorizontalSlider_SamplingFrequancy.value()
+        if self.Current_Signal:
+            self.Current_Signal.Update_Sampling_rate(value_final)
+            # to update the limitsss
+            self.Display_labels()
+            self.Plot_OriginalSignal(self.Current_Signal)
+            # print(f"sampling rate is {self.Current_Signal.sampling_rate_freq}")
 
 
     def set_silder_limits(self , min , max , step1 , step2):
@@ -531,6 +550,24 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.Current_Signal.amplitude +=noise 
 
         self.Plot_OriginalSignal(self.Current_Signal)
+    
+    def Set_YRange_Limits(self , amplitude):
+
+        min = np.min(amplitude) -2
+        max=np.max(amplitude)+2
+        self.graph_1.widget.setLimits( yMin=min, yMax=max)
+        self.graph_2.widget.setLimits( yMin=min, yMax=max)
+        # self.graph_3.widget.setLimits( yMin=min, yMax=max)
+        self.graph_4.widget.setLimits( yMin=min, yMax=max)
+        
+        
+        
+        self.graph_1.widget.setYRange(min , max )
+        self.graph_2.widget.setYRange(min , max )
+        # self.graph_3.widget.setYRange(0 , max )
+        self.graph_4.widget.setYRange(min , max )
+
+
 
 
 
