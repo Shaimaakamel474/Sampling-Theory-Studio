@@ -23,7 +23,7 @@ from Component import Component
 from Widget import Widget
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType("Task02.ui")
-
+# shaimnaaa lakmekmlem
 
 class MainWindow(QMainWindow,Ui_MainWindow):
     def __init__(self):
