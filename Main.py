@@ -1,8 +1,5 @@
-# toz fi shimaa martin
 from PyQt5.QtCore import Qt
-
 from Signal import Signal
-
 from scipy.fft import fft
 from PyQt5.QtGui import QIcon
 from scipy.interpolate import interp1d
@@ -13,7 +10,6 @@ import pandas as pd
 import math
 import numpy as np
 from PyQt5.QtWidgets import QSlider
-
 from PyQt5.QtWidgets import QApplication, QListWidgetItem, QPushButton, QWidget, QHBoxLayout
 from scipy.interpolate import CubicSpline
 from PyQt5 import uic
@@ -23,7 +19,7 @@ from Component import Component
 from Widget import Widget
 
 Ui_MainWindow, QtBaseClass = uic.loadUiType("Task02.ui")
-# shaimnaaa lakmekmlem
+
 
 class MainWindow(QMainWindow,Ui_MainWindow):
     def __init__(self):
@@ -54,6 +50,8 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.Combobox_ReconstructionMethod.currentIndexChanged.connect(lambda item_index : self.Reconstruction_Method(item_index))
         self.HorizontalSlider_SNR.valueChanged.connect(self.update_SNR)
         self.HorizontalSlider_SNR.setEnabled(False)
+        self.PushButton_SaveSignal.clicked.connect(self.SaveFile)
+        self.PushButton_SaveSignal.setEnabled(False)
 
 
 
@@ -71,10 +69,6 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         # self.LineEdit_SetSamplingFrequancy.setText(str(1))
         # self.Current_Signal=self.CreatedSignal
         # self.Plot_OriginalSignal(self.Current_Signal)
-
-
-
-
 
 
 
@@ -191,7 +185,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.componentsList.append(Curr_Component)
         self.clear_all_graphs()
        
-        self.Set_YRange_Limits(self.combined_signal)
+        # self.Set_YRange_Limits(self.combined_signal)
        
         self.graph_1.plot.setData(self.time , self.combined_signal)
         self.graph_1.widget.setTitle("Generate New Signal")
@@ -242,7 +236,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
                 # print("entered here")
                 self.Current_Signal=self.Signals[len(self.Signals) - 1]
                 self.show_signalcomponent(self.Current_Signal)
-
+  
 
 
     
@@ -250,7 +244,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 
     def Generate_Mixed_Signal(self):
         self.HorizontalSlider_SNR.setEnabled(True)
-
+        self.PushButton_SaveSignal.setEnabled(True)
         num=len(self.Signals)
         signal=Signal(self.time , self.combined_signal , f"Signal_{num+1}" )
         self.Signals.append(signal)
@@ -308,7 +302,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         #    print(f"len now is {len( self.Current_Signal.Components)}")
            self.Current_Signal.Remove_component(component_to_remove)
            
-           self.Change_samplingRate()
+           self.Change_samplingRate(None)
         #    print(f" the max freq after delete component : {self.Current_Signal.maxfrequancy}")
            self.Plot_OriginalSignal(self.Current_Signal)
       
@@ -366,17 +360,21 @@ class MainWindow(QMainWindow,Ui_MainWindow):
     def show_signalcomponent(self , signal):
         self.ListWidget_Components.clear()
         if signal :
+            self.PushButton_SaveSignal.setEnabled(True)
             for component in signal.Components:
                 self.Add_SignalComponents(component)
             self.Current_Signal=signal
             self.Change_SamplingRate_Method()
             self.update_SNR()
+
             self.Plot_OriginalSignal(signal)
         else:
             # the signals is endedd
             self.Reset_Default_Slider()
             self.clear_all_graphs()
             self.HorizontalSlider_SNR.setEnabled(False)
+            self.PushButton_SaveSignal.setEnabled(False)
+            self.PushButton_GenerateSignal.setEnabled(False)
 
 
 
@@ -403,7 +401,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         self.graph_1.clear_Widget()
         if Signal :
             self.Current_Signal=Signal
-            self.Set_YRange_Limits( self.Current_Signal.amplitude)
+            # self.Set_YRange_Limits( self.Current_Signal.amplitude)
             self.graph_1.plot.setData(self.Current_Signal.time , self.Current_Signal.amplitude )
             self.graph_1.widget.setTitle(self.Current_Signal.name)
 
@@ -422,6 +420,7 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 
             item=self.Combobox_ReconstructionMethod.currentIndex()
             self.Reconstruction_Method(item)
+            # self.Graph4_Plot()
 
 
 
@@ -440,7 +439,8 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         interpolated_data = np.zeros_like(Signal.time, dtype=np.float64)
         N=len(Signal.time)
         sampling_interval=1/Signal.sampling_rate_freq
-
+        # print(f"data sampling : {data_sampling}")
+        # print(f"time sampling : {time_sampling}")
         for i in range(len(time_sampling)):  # Convolution using sinc
             interpolated_data += data_sampling[i] * np.sinc((Signal.time - time_sampling[i]) /sampling_interval )
         return interpolated_data 
@@ -453,8 +453,23 @@ class MainWindow(QMainWindow,Ui_MainWindow):
         data_sampling=self.Current_Signal.Resampled_data
         reconstructed_signal = CubicSpline(time_sampling, data_sampling, bc_type="natural")(Signal.time)
         return reconstructed_signal
-
     
+
+
+    # def Fourier_Method(self):
+    #     Signal=self.Current_Signal
+    #     time_sampling=self.Current_Signal.Resampled_time
+    #     data_sampling=self.Current_Signal.Resampled_data
+    #     yf = np.fft.fft(data_sampling)
+    #     reconstructed_signal = np.fft.ifft(yf)
+    #     return reconstructed_signal
+
+    # def Linear_Method(self):
+    #     Signal=self.Current_Signal
+    #     time_sampling=self.Current_Signal.Resampled_time
+    #     data_sampling=self.Current_Signal.Resampled_data
+    #     reconstructed_signal = interp1d(time_sampling, data_sampling)(Signal.time)
+    #     return reconstructed_signal
 
     def Reconstruction_Method(self , item_index):
         if item_index ==0 :
@@ -551,25 +566,57 @@ class MainWindow(QMainWindow,Ui_MainWindow):
 
         self.Plot_OriginalSignal(self.Current_Signal)
     
-    def Set_YRange_Limits(self , amplitude):
+    # def Set_YRange_Limits(self , amplitude):
 
-        min = np.min(amplitude) -2
-        max=np.max(amplitude)+2
-        self.graph_1.widget.setLimits( yMin=min, yMax=max)
-        self.graph_2.widget.setLimits( yMin=min, yMax=max)
-        # self.graph_3.widget.setLimits( yMin=min, yMax=max)
-        self.graph_4.widget.setLimits( yMin=min, yMax=max)
+    #     min = np.min(amplitude) -2
+    #     max=np.max(amplitude)+2
+    #     self.graph_1.widget.setLimits( yMin=min, yMax=max)
+    #     self.graph_2.widget.setLimits( yMin=min, yMax=max)
+    #     # self.graph_3.widget.setLimits( yMin=min, yMax=max)
+    #     self.graph_4.widget.setLimits( yMin=min, yMax=max)
         
         
         
-        self.graph_1.widget.setYRange(min , max )
-        self.graph_2.widget.setYRange(min , max )
-        # self.graph_3.widget.setYRange(0 , max )
-        self.graph_4.widget.setYRange(min , max )
+    #     self.graph_1.widget.setYRange(min , max )
+    #     self.graph_2.widget.setYRange(min , max )
+    #     # self.graph_3.widget.setYRange(0 , max )
+    #     self.graph_4.widget.setYRange(min , max )
 
+    def SaveFile(self):
+        print("heree in save file ")
+        if self.Current_Signal:
+            # Prepare data for saving
+            data = {
+                "Time": self.Current_Signal.time,
+                "Amplitude": self.Current_Signal.amplitude,
+                "Max Frequency": [self.Current_Signal.maxfrequancy] * len(self.Current_Signal.time)
+            }
+            df = pd.DataFrame(data)
+            
+            # Set the filename based on signal name
+            filename = f"{self.Current_Signal.name}.csv"
+            try:
+                # Save to CSV
+                df.to_csv(filename, index=False)
+                print(f"File saved as {filename}")
+            except Exception as e:
+                print(f"Error saving file: {e}")
 
+    # def Graph4_Plot(self):
+    #     signal = self.Current_Signal  # Assuming Current_Signal has 'amplitude' and 'sampling_rate_freq' attributes
+    #     sampling_rate = signal.sampling_rate_freq
+    #     amplitude = signal.amplitude
 
+    #     # Step 2: Perform the Fourier Transform
+    #     fft_result = fft(amplitude)  # Perform FFT
+    #     N = len(fft_result)
+    #     fft_magnitude = np.abs(fft_result[:N // 2]) 
 
+    #     # Step 3: Generate the frequency bins
+    #     frequencies = np.fft.fftfreq(N, 1 / sampling_rate)
+    #     frequencies = frequencies[:N // 2]  # Only take positive frequencies
+
+    #     self.graph_4.plot.setData(frequencies, fft_magnitude)
 
 
 
