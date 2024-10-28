@@ -1,4 +1,4 @@
-
+##############7ma sala7 bygr
 from PyQt5.QtCore import Qt
 
 from Signal import Signal
