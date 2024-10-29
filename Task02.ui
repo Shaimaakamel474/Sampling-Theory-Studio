@@ -450,12 +450,17 @@ border-bottom:2px solid white;</string>
    </item>
    <item>
     <property name="text">
-     <string>Cubic</string>
+     <string>Cubic_Splin</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Method_2</string>
+     <string>Nearest_Neighbor</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>Linear</string>
     </property>
    </item>
   </widget>
@@ -605,6 +610,11 @@ border-bottom:2px solid white;</string>
   
 </string>
    </property>
+   <item>
+    <property name="text">
+     <string>All_Signals</string>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>Signal 1</string>
