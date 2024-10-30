@@ -455,12 +455,12 @@ border-bottom:2px solid white;</string>
    </item>
    <item>
     <property name="text">
-     <string>Nearest_Neighbor</string>
+     <string>Fourier</string>
     </property>
    </item>
    <item>
     <property name="text">
-     <string>Linear</string>
+     <string>WaveLet</string>
     </property>
    </item>
   </widget>
@@ -610,11 +610,6 @@ border-bottom:2px solid white;</string>
   
 </string>
    </property>
-   <item>
-    <property name="text">
-     <string>All_Signals</string>
-    </property>
-   </item>
    <item>
     <property name="text">
      <string>Signal 1</string>

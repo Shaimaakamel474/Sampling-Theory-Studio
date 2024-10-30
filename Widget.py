@@ -12,10 +12,11 @@ class Widget():
         self.widget.setLabel('left', y_label)  
         self.widget.setLabel('bottom', x_label) 
         self.widget.setBackground('w')
-        # self.widget.getAxis('bottom').setTickSpacing(major=0.1, minor=0.05)
+ 
         self.scatter_plot=None
-        # self.widget.setXRange(-0.2 , 2.3)
-        # self.widget.setLimits(xMin=-0.2, xMax=2.3)
+
+
+
         
 
 
@@ -30,6 +31,15 @@ class Widget():
     def Scatter_Plot_func(self , plot):
         self.scatter_plot=plot
         self.widget.addItem(self.scatter_plot)
+
+    def set_Range_Limits(self, xmin , xmax , ymin , ymax):
+        self.widget.getAxis('bottom').setTickSpacing(major=0.1, minor=0.05)
+        self.widget.setXRange(xmin , xmax)
+        self.widget.setYRange(ymin , ymax)
+
+
+
+
 
 
 
