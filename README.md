@@ -22,7 +22,12 @@ The Sampling-Theory Studio is a desktop application designed to illustrate the c
 - *Real-Time Processing:*
   - Sampling and recovery updates occur in real-time with user adjustments.
 - *Multiple Reconstruction Methods:*
-  - Explore different reconstruction methods via a combobox selection.
+  - Recover the original signal using multiple reconstruction methods: 
+    - Whittaker–Shannon interpolation.
+    - Cubic interpolation.
+    - Fourier reconstruction.
+    - Wavelet reconstruction.
+  - 
 - *Resizable UI:*
   - The application layout adjusts dynamically with window resizing.
 
@@ -79,18 +84,6 @@ The Sampling-Theory Studio is a desktop application designed to illustrate the c
 
 ## Acknowledgments
 Inspired by foundational concepts in digital signal processing and the Nyquist–Shannon sampling theorem.
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
