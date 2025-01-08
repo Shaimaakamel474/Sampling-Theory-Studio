@@ -3,6 +3,9 @@
 ## Overview
 The Sampling-Theory Studio is a desktop application designed to illustrate the concepts of signal sampling and recovery, emphasizing the importance of the Nyquist–Shannon sampling theorem. It allows users to explore how different sampling frequencies affect the ability to reconstruct signals accurately.
 
+https://github.com/user-attachments/assets/ec5b6195-9889-48d9-8928-064629058365
+
+
 ## Features
 - *Sample & Recover:*
   - Load a mid-length signal (~1000 points) and visualize it.
