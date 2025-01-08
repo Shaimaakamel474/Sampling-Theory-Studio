@@ -33,7 +33,7 @@ class Widget():
         self.widget.addItem(self.scatter_plot)
 
     def set_Range_Limits(self, xmin , xmax , ymin , ymax):
-        self.widget.getAxis('bottom').setTickSpacing(major=0.1, minor=0.05)
+        # self.widget.getAxis('bottom').setTickSpacing(major=0.1, minor=0.05)
         self.widget.setXRange(xmin , xmax)
         self.widget.setYRange(ymin , ymax)
 

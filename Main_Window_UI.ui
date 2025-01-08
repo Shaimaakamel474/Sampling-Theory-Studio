@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1901</width>
+    <height>855</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background:rgba(158,177,175,255);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0">
+      <item>
+       <widget class="QGroupBox" name="groupBox_3">
+        <property name="maximumSize">
+         <size>
+          <width>1877</width>
+          <height>900</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">Background:white;
+border-radius:20px;</string>
+        </property>
+        <property name="title">
+         <string/>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="1">
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="minimumSize">
+            <size>
+             <width>631</width>
+             <height>631</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>800</width>
+             <height>830</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background:rgba(158,177,175,255);
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 20px;</string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_3">
+            <item row="1" column="1" rowspan="2">
+             <widget class="QScrollArea" name="scrollArea_8">
+              <property name="minimumSize">
+               <size>
+                <width>197</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px solid rgba(68,82,83,255);
+border-radius: 0px;</string>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_9">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>267</width>
+                 <height>499</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_4">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="PushButton_UploadSignal">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Upload</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QListWidget" name="ListWidget_SignalGeneration">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 20px;
+  
+</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_12">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Components</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QListWidget" name="ListWidget_Components">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 20px;
+  
+</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item row="1" column="2" rowspan="2">
+             <widget class="QScrollArea" name="scrollArea_9">
+              <property name="minimumSize">
+               <size>
+                <width>160</width>
+                <height>0</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px solid rgba(68,82,83,255);
+border-radius: 0px;</string>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_10">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>230</width>
+                 <height>499</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_5">
+                <item row="0" column="0" colspan="2">
+                 <widget class="QLabel" name="label_13">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Noise</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0" colspan="2">
+                 <widget class="QSlider" name="HorizontalSlider_SNR">
+                  <property name="styleSheet">
+                   <string notr="true">background:rgba(158,177,175,255);</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="value">
+                   <number>100</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                 </widget>
+                </item>
+                <item row="7" column="0" colspan="2">
+                 <widget class="QSlider" name="HorizontalSlider_SamplingFrequancy">
+                  <property name="styleSheet">
+                   <string notr="true">background:rgba(158,177,175,255);
+  
+</string>
+                  </property>
+                  <property name="minimum">
+                   <number>1</number>
+                  </property>
+                  <property name="maximum">
+                   <number>100</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>1</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>5</number>
+                  </property>
+                  <property name="tracking">
+                   <bool>true</bool>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="tickPosition">
+                   <enum>QSlider::NoTicks</enum>
+                  </property>
+                  <property name="tickInterval">
+                   <number>0</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="6" column="1">
+                 <widget class="QLineEdit" name="Label_SetSamplingFrequancy">
+                  <property name="text">
+                   <string>HZ</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0" colspan="2">
+                 <widget class="QLabel" name="label_17">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Sampling Rate</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="8" column="0" colspan="2">
+                 <widget class="QLabel" name="label_16">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Default Signals</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="0" colspan="2">
+                 <widget class="QCheckBox" name="Checkbox_IsNormalizedSampling">
+                  <property name="text">
+                   <string>Normal Range</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="10" column="0" colspan="2">
+                 <widget class="QPushButton" name="PushButton_SaveSignal">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Save File</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="9" column="0" colspan="2">
+                 <widget class="QComboBox" name="Combobox_DefualtSignals">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>SEN_1</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SEN_2</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>SEN_3</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="6" column="0">
+                 <widget class="QLineEdit" name="LineEdit_SetSamplingFrequancy">
+                  <property name="text">
+                   <string>0</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0" colspan="2">
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <widget class="QLineEdit" name="LineEdit_SetSNRValue">
+                    <property name="maximumSize">
+                     <size>
+                      <width>150</width>
+                      <height>16777215</height>
+                     </size>
+                    </property>
+                    <property name="text">
+                     <string>0</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLabel" name="label_9">
+                    <property name="text">
+                     <string>SNR</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QScrollArea" name="scrollArea_7">
+              <property name="minimumSize">
+               <size>
+                <width>233</width>
+                <height>163</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px solid rgba(68,82,83,255);
+border-radius: 0px;</string>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_8">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>267</width>
+                 <height>246</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_7">
+                <item row="0" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Signals</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QListWidget" name="ListWidget_Signals">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 20px;
+  
+</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QScrollArea" name="scrollArea_6">
+              <property name="minimumSize">
+               <size>
+                <width>240</width>
+                <height>236</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">border: 0px solid rgba(68,82,83,255);
+border-radius: 0px;</string>
+              </property>
+              <property name="widgetResizable">
+               <bool>true</bool>
+              </property>
+              <widget class="QWidget" name="scrollAreaWidgetContents_6">
+               <property name="geometry">
+                <rect>
+                 <x>0</x>
+                 <y>0</y>
+                 <width>267</width>
+                 <height>246</height>
+                </rect>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_11">
+                <item row="0" column="0" colspan="3">
+                 <widget class="QLabel" name="label_19">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:18px;
+font-weight:1000;
+color:white;
+border-bottom:2px solid white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Mixed Signals</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_18">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:14px;
+font-weight:1000;
+color:white;
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Amplitude</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1" colspan="2">
+                 <widget class="QSpinBox" name="SpinBox_Amplitude">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1" colspan="2">
+                 <widget class="QSpinBox" name="SpinBox_Frequency">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="label_10">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:14px;
+font-weight:1000;
+color:white;
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Phase</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QLabel" name="label_20">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:14px;
+font-weight:1000;
+color:white;</string>
+                  </property>
+                  <property name="text">
+                   <string>Frequancy</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="5" column="2">
+                 <widget class="QPushButton" name="PushButton_GenerateSignal">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Generate</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1" colspan="2">
+                 <widget class="QComboBox" name="Combobox_ReconstructionMethod">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <item>
+                   <property name="text">
+                    <string>Shannon</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Cubic_Splin</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Fourier</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>Wavelets</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item row="5" column="0" colspan="2">
+                 <widget class="QPushButton" name="PushButton_AddComponent">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Add Component</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1" colspan="2">
+                 <widget class="QSpinBox" name="SpinBox_Phase">
+                  <property name="styleSheet">
+                   <string notr="true">  background: rgba(113,133,132,255);
+  font-family: inherit;
+  padding: 0.2em 0.3em;
+  font-weight: 600;
+  color:white;
+  font-size: 14px;
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 0.4em;
+  
+</string>
+                  </property>
+                  <property name="maximum">
+                   <number>360</number>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="label_15">
+                  <property name="styleSheet">
+                   <string notr="true">Font-size:14px;
+font-weight:1000;
+color:white;
+</string>
+                  </property>
+                  <property name="text">
+                   <string>Reconstrution</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </widget>
+            </item>
+            <item row="0" column="0" colspan="3">
+             <widget class="QFrame" name="frame">
+              <property name="maximumSize">
+               <size>
+                <width>16777215</width>
+                <height>300</height>
+               </size>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">  background: rgba(113,133,132,255);
+
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 20px;</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::StyledPanel</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QGridLayout" name="gridLayout_8">
+               <item row="0" column="0">
+                <widget class="PlotWidget" name="Widget_4" native="true">
+                 <property name="minimumSize">
+                  <size>
+                   <width>590</width>
+                   <height>200</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>867</width>
+                   <height>260</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">background:white;
+border-radius:20px;
+</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QGroupBox" name="groupBox">
+           <property name="minimumSize">
+            <size>
+             <width>591</width>
+             <height>661</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">  background: rgba(113,133,132,255);
+
+  border: 3px solid rgba(68,82,83,255);
+  border-radius: 20px;</string>
+           </property>
+           <property name="title">
+            <string/>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_2">
+            <item row="0" column="0">
+             <widget class="PlotWidget" name="Widget_1" native="true">
+              <property name="autoFillBackground">
+               <bool>false</bool>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">background:white;
+border-radius:20px;
+</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="PlotWidget" name="Widget_2" native="true">
+              <property name="styleSheet">
+               <string notr="true">background:white;
+border-radius:20px;
+</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="PlotWidget" name="Widget_3" native="true">
+              <property name="styleSheet">
+               <string notr="true">background:white;
+border-radius:20px;
+</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1901</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PlotWidget</class>
+   <extends>QWidget</extends>
+   <header location="global">pyqtgraph</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
