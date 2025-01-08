@@ -27,7 +27,7 @@ The Sampling-Theory Studio is a desktop application designed to illustrate the c
     - Cubic interpolation.
     - Fourier reconstruction.
     - Wavelet reconstruction.
-  - 
+
 - *Resizable UI:*
   - The application layout adjusts dynamically with window resizing.
 
